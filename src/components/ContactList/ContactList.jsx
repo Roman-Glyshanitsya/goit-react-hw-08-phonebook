@@ -1,7 +1,7 @@
 import ContactItem from '../ContactItem/ContactItem';
 import { List } from './ContactList.styled';
 import { useSelector } from 'react-redux';
-import { useGetContactByNameQuery } from 'redux/contactApi';
+import { useGetContactByNameQuery } from 'redux/contacts/contactApi';
 
 const ContactList = () => {
     const contactItems = useGetContactByNameQuery().data;

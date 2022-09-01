@@ -1,16 +1,30 @@
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import Filter from './Filter/Filter';
 import { Container } from './App.styled';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from 'components/Layout/Layout';
+import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
+import { LoginPage } from 'pages/LoginPage/LoginPage';
+import { HomePage } from 'pages/HomePage/HomePage';
+import { ContactsPage } from 'pages/ContactsPage/ContactsPage';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { authOperations } from 'redux/auth';
 
-export function App() {
-    return (
-      <Container>
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <h2>Contacts</h2>
-        <Filter />
-        <ContactList />
-      </Container>
-    )
+export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
+
+  return (
+    <Container>
+      <Layout />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+      </Routes>
+    </Container>
+  );
 };

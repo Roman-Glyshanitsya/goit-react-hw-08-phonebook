@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { nanoid } from 'nanoid';
-import { useAddContactMutation, useGetContactByNameQuery } from 'redux/contactApi';
+import { useAddContactMutation, useGetContactByNameQuery } from 'redux/contacts/contactApi';
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
 export default function ContactForm() {
     const contacts = useGetContactByNameQuery().data;
-    const [addContact] = useAddContactMutation();
+    const [addContact, { isLoading }] = useAddContactMutation();
     
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
@@ -68,7 +68,7 @@ export default function ContactForm() {
                         required
                         />
                 </Label>
-                <Button type="submit">Add contact</Button>
+                <Button type="submit" disabled={isLoading}>Add contact</Button>
             </Form>
         );
 };
