@@ -9,6 +9,6 @@
 }
 
 .activeLink {
-  composes: link;
+  /* composes: link; */
   color: #ff6b08;
 }
