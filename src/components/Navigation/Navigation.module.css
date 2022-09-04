@@ -1,14 +1,5 @@
-.link {
-  display: inline-block;
+.link{
   text-decoration: none;
-  padding: 12px;
-  font-weight: 500;
+  color: #fff;
   font-size: 18px;
-  color: #000000;
-  line-height: 1.17;
-}
-
-.activeLink {
-  /* composes: link; */
-  color: #ff6b08;
 }
