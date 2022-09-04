@@ -1,29 +1,33 @@
-import ContactItem from '../ContactItem/ContactItem';
-import { List } from './ContactList.styled';
 import { useSelector } from 'react-redux';
-import { useGetContactByNameQuery } from 'redux/contacts/contactApi';
+import ContactItem from '../ContactItem/ContactItem';
+import { filterSlice, contactApi } from 'redux/contacts';
+import { Loader } from 'components/Loader/Loader';
+import { List } from './ContactList.styled';
 
 const ContactList = () => {
-    const contactItems = useGetContactByNameQuery().data;
-    const { filter } = useSelector(state => state.filter);
+    const { data: contacts, isLoading: loadingList } = contactApi.useGetContactByNameQuery();
+    const filterValue = useSelector(filterSlice.getFilter);
 
     const filterContact = () => {
-        const visibleContacts = contactItems.filter(contact =>
-            contact.name.toLowerCase().includes(filter.toLowerCase())
-            );
-            return visibleContacts;
-        };
+        const normalizedFilter = filterValue.toLocaleLowerCase();
+        return (
+            contacts &&
+            contacts.filter(contact =>
+                contact.name.toLocaleLowerCase().includes(normalizedFilter)
+            )
+        );
+    };
         
     return (
         <List>
-            {contactItems && filterContact().map(({ id, name, number }) => {
-                return <ContactItem
-                    key={id}
-                    id={id}
-                    name={name}
-                    number={number}
-                />
-            }
+            {loadingList && <Loader />}
+            {contacts && (
+                filterContact().map(contact => (
+                    <ContactItem
+                        key={contact.id}
+                        contact={contact}
+                    />
+                ))
             )}
         </List>
     );

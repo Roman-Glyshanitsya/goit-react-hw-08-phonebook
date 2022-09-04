@@ -7,23 +7,26 @@ export const contactApi = createApi({
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {
-        headers.set('authorization', `Bearer ${token}`);
+        headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;
     },
   }),
-  tagTypes: ['contacts'],
+  tagTypes: ['Contact'],
   endpoints: builder => ({
     getContactByName: builder.query({
-      query: () => `contacts`,
-      providesTags: ['contacts'],
+      query: () => ({
+        url: 'contacts',
+        method: 'GET',
+      }),
+      providesTags: ['Contact'],
     }),
     deleteContact: builder.mutation({
       query: id => ({
         url: `contacts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['contacts'],
+      invalidatesTags: ['Contact'],
     }),
     addContact: builder.mutation({
       query: newContact => ({
@@ -31,7 +34,7 @@ export const contactApi = createApi({
         method: 'POST',
         body: newContact,
       }),
-      invalidatesTags: ['contacts'],
+      invalidatesTags: ['Contact'],
     }),
   }),
 });

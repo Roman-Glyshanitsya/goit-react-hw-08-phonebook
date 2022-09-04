@@ -1,16 +1,13 @@
-import { Input } from 'components/ContactForm/ContactForm.styled';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { authOperations } from 'redux/auth';
+import authOperations from 'redux/auth/authOperations';
+import { Input } from 'components/ContactForm/ContactForm.styled';
 
 export const RegisterPage = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  //   const error = useSelector(getUserError);
-  //   const location = useLocation().pathname;
-  const dispatch = useDispatch();
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -38,8 +35,7 @@ export const RegisterPage = () => {
       <form onSubmit={handleSubmit} autoComplete="off">
         <Input
           label="Name"
-          //   variant="outlined"
-          type="text"
+          type="name"
           name="name"
           value={name}
           onChange={handleChange}
@@ -49,7 +45,6 @@ export const RegisterPage = () => {
 
         <Input
           label="Email"
-          //   variant="outlined"
           type="email"
           name="email"
           value={email}
@@ -60,7 +55,6 @@ export const RegisterPage = () => {
 
         <Input
           label="Password"
-          //   variant="outlined"
           type="password"
           name="password"
           value={password}
@@ -69,15 +63,6 @@ export const RegisterPage = () => {
           required
         />
         <button type="submit">Register</button>
-        {/* <div className={styles.errorContainer}>
-          {error && (
-            <p className={styles.error}>
-              {location === '/login'
-                ? ' Incorrect email or password'
-                : 'This email is alredy used'}
-            </p>
-          )}
-        </div> */}
       </form>
     </div>
   );

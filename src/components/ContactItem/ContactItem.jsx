@@ -1,15 +1,19 @@
-import PropTypes from 'prop-types';
+import { contactApi } from 'redux/contacts';
+import { LoaderMini } from 'components/Loader/Loader';
 import { Item, Button, Span } from './ContactItem.styled';
-import { useDeleteContactMutation } from 'redux/contacts/contactApi';
+import PropTypes from 'prop-types';
 
 const ContactItem = ({ id, name, number }) => {
-    const [deleteContact, {isLoading}] = useDeleteContactMutation();
+    const [deleteContact, {isLoading: isDeleting}] = contactApi.useDeleteContactMutation();
 
     return (
         <Item>
             <p  >{name} : <Span>{number}</Span></p>
-            <Button type='button' disabled={isLoading} onClick={() => deleteContact(id)}>Delete</Button>
-        </Item>)
+            <Button type='button' disabled={isDeleting} onClick={() => deleteContact(id)}>
+                {isDeleting ? <LoaderMini /> : <span>Delete</span>}
+            </Button>
+        </Item>
+    );
 };
 
 export default ContactItem;

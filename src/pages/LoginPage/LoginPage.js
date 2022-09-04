@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { authOperations } from '../../redux/auth';
+import operations from '../../redux/auth/authOperations';
 import { Form, Label } from './LoginPage.styled';
 
 export const LoginPage = () => {
@@ -21,14 +21,14 @@ export const LoginPage = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(authOperations.logIn({ email, password }));
+    dispatch(operations.logIn({ email, password }));
     setEmail('');
     setPassword('');
   };
 
   return (
     <div>
-      <h1>Страница логина</h1>
+      <h1>Login Page</h1>
 
       <Form onSubmit={handleSubmit} autoComplete="off">
         <Label>
@@ -53,7 +53,7 @@ export const LoginPage = () => {
           />
         </Label>
 
-        <button type="submit">Login</button>
+        <button type="submit">LogIn</button>
       </Form>
     </div>
   );
