@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import operations from '../../redux/auth/authOperations';
 import { Form, Label } from './LoginPage.styled';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -58,3 +58,5 @@ export const LoginPage = () => {
     </div>
   );
 };
+
+export default LoginPage;

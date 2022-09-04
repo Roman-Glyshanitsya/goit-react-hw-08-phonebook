@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import authOperations from 'redux/auth/authOperations';
 import { Input } from 'components/ContactForm/ContactForm.styled';
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -67,3 +67,5 @@ export const RegisterPage = () => {
     </div>
   );
 };
+
+export default RegisterPage;
